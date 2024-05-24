@@ -47,6 +47,12 @@ def check_len(prompt, max_length=200):
 
 
 def get_models():
+    if not os.path.exists('./users'):
+        os.makedirs('./users')
+
+    if not os.path.exists('./BLIP'):
+        os.makedirs('./BLIP')
+
     if not os.path.exists('./Models'):
         os.makedirs('./Models')
 
