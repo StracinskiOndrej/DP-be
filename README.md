@@ -7,7 +7,7 @@ Follow these steps to set up and install the project on your local machine.
 
 ### Prerequisites
 
-This project requiers CUDA
+This project requires CUDA
 
 ### Step 1: Clone the Repository
 
