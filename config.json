@@ -1,0 +1,10 @@
+{
+  "db": "dp" ,
+  "db_host": "localhost",
+  "db_user": "root",
+  "db_password": "password",
+  "v1_5_models": ["stable-diffusion-v1-5"],
+  "xl_models": [],
+  "_note": "stable-diffusion-xl-base-1.0",
+  "blip_path": "./BLIP/blip-image-captioning-large"
+}

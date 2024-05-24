@@ -1,0 +1,349 @@
+### Register a new user
+POST http://localhost:5000/register
+Content-Type: application/x-www-form-urlencoded
+
+username=testuser342&
+email=testuser342@example.com&
+password=password
+
+###
+
+POST http://localhost:5000/register
+Content-Type: application/x-www-form-urlencoded
+
+username=testuser5&
+password=password
+
+
+### Log in the user
+POST http://localhost:5000/login
+Content-Type: application/x-www-form-urlencoded
+
+email=test5@mail.com&
+password=testPassword5
+
+###
+POST http://localhost:5000/login
+Content-Type: application/x-www-form-urlencoded
+
+email=testuser342@example.com&
+password=password123
+
+
+### Test txt2img positive case
+POST http://localhost:5000/txt2img
+Content-Type: application/x-www-form-urlencoded
+
+
+prompt=A beautiful landscape&
+guidance_scale=10.0&
+personalized=true&
+model=stable-diffusion-v1-5&
+refiner=none
+
+###
+
+### Test txt2img with no prompt
+POST http://localhost:5000/txt2img
+Content-Type: application/x-www-form-urlencoded
+
+guidance_scale=10.0&
+personalized=true&
+model=stable-diffusion-v1-5&
+refiner=none
+
+###
+
+### Test txt2img with invalid model
+POST http://localhost:5000/txt2img
+Content-Type: application/x-www-form-urlencoded
+
+prompt=A beautiful landscape&
+guidance_scale=10.0&
+personalized=true&
+model=invalid_model&
+refiner=none
+
+###
+
+### Test img2img positive case
+POST http://localhost:5000/img2img
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="image.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/1.jpg
+--boundary
+Content-Disposition: form-data; name="prompt"
+
+A beautiful sunset over the mountains
+--boundary
+Content-Disposition: form-data; name="negative"
+
+none
+--boundary
+Content-Disposition: form-data; name="guidance_scale"
+
+10
+--boundary
+Content-Disposition: form-data; name="strength"
+
+0.5
+--boundary
+Content-Disposition: form-data; name="personalized"
+
+true
+--boundary
+Content-Disposition: form-data; name="model"
+
+stable-diffusion-v1-5
+--boundary
+Content-Disposition: form-data; name="refiner"
+
+none
+--boundary--
+
+
+
+
+### Test img2img with no image
+POST http://localhost:5000/img2img
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="prompt"
+
+A beautiful sunset over the mountains
+--boundary
+Content-Disposition: form-data; name="negative"
+
+none
+--boundary
+Content-Disposition: form-data; name="guidance_scale"
+
+10
+--boundary
+Content-Disposition: form-data; name="strength"
+
+0.5
+--boundary
+Content-Disposition: form-data; name="personalized"
+
+true
+--boundary
+Content-Disposition: form-data; name="model"
+
+stable-diffusion-v1-5
+--boundary
+Content-Disposition: form-data; name="refiner"
+
+none
+--boundary--
+
+###
+
+### Test img2img empty prompt
+POST http://localhost:5000/img2img
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="image.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/1.jpg
+--boundary
+Content-Disposition: form-data; name="prompt"
+
+--boundary
+Content-Disposition: form-data; name="negative"
+
+none
+--boundary
+Content-Disposition: form-data; name="guidance_scale"
+
+10
+--boundary
+Content-Disposition: form-data; name="strength"
+
+0.5
+--boundary
+Content-Disposition: form-data; name="personalized"
+
+true
+--boundary
+Content-Disposition: form-data; name="model"
+
+stable-diffusion-v1-5
+--boundary
+Content-Disposition: form-data; name="refiner"
+
+none
+--boundary--
+
+### Test img2img invalid model
+POST http://localhost:5000/img2img
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="image.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/1.jpg
+--boundary
+Content-Disposition: form-data; name="prompt"
+
+A beautiful sunset over the mountains
+--boundary
+Content-Disposition: form-data; name="negative"
+
+none
+--boundary
+Content-Disposition: form-data; name="guidance_scale"
+
+10
+--boundary
+Content-Disposition: form-data; name="strength"
+
+0.5
+--boundary
+Content-Disposition: form-data; name="personalized"
+
+true
+--boundary
+Content-Disposition: form-data; name="model"
+
+invalid-model
+--boundary
+Content-Disposition: form-data; name="refiner"
+
+none
+--boundary--
+
+### Test save to gallery
+POST http://localhost:5000/save_to_gallery
+Content-Type: application/x-www-form-urlencoded
+
+image_name=test.jpg&
+image=/9j/4AAQSkZJRgABAQAAA...
+#the whole image took up too much space so i deleted it after testing
+
+###
+
+### Test save to gallery missing image
+POST http://localhost:5000/save_to_gallery
+Content-Type: application/x-www-form-urlencoded
+
+image_name=test.jpg
+
+###
+
+
+### Check session logged in
+GET http://localhost:5000/check-session
+
+###
+
+### Test logout
+POST http://localhost:5000/logout
+Content-Type: application/x-www-form-urlencoded
+
+###
+
+### Check session not logged in
+GET http://localhost:5000/get_models
+
+###
+
+### Check session not logged in
+GET http://localhost:5000/gallery
+
+###
+### Test delete from gallery
+POST http://localhost:5000/delete_from_gallery
+Content-Type: application/x-www-form-urlencoded
+
+image_name=20240518_124842_0.jpg
+
+###
+### Test delete from gallery, bad name
+POST http://localhost:5000/delete_from_gallery
+Content-Type: application/x-www-form-urlencoded
+
+image_name=nonexistantimg.jpg
+
+###
+
+### Test delete from gallery, bad name
+POST http://localhost:5000/personalize
+
+
+###
+POST http://localhost:5000/merge
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image0"; filename="1.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/1.jpg
+--boundary
+Content-Disposition: form-data; name="image1"; filename="2.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/2.jpg
+--boundary--
+###
+###
+POST http://localhost:5000/merge
+Content-Type: multipart/form-data; boundary=boundary
+
+
+###
+
+###
+POST http://localhost:5000/rgb
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image0"; filename="1.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/1.jpg
+--boundary
+Content-Disposition: form-data; name="image1"; filename="2.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/2.jpg
+--boundary--
+###
+###
+POST http://localhost:5000/rgb
+Content-Type: multipart/form-data; boundary=boundary
+
+
+###
+
+###
+POST http://localhost:5000/merge_gray
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image0"; filename="1.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/1.jpg
+--boundary
+Content-Disposition: form-data; name="image1"; filename="2.jpg"
+Content-Type: image/jpeg
+
+< ./api_test/2.jpg
+--boundary--
+###
+###
+POST http://localhost:5000/merge_gray
+Content-Type: multipart/form-data; boundary=boundary
+
+
+###
